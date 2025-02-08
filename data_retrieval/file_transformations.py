@@ -9,11 +9,12 @@ from urllib.parse import urljoin
 from zipfile import ZipFile
 from io import BytesIO
 from datetime import date
+from database import Database
 
 eia_page = r'https://www.eia.gov/electricity/data/eia861/'
 migration_page = r'https://www.maine.gov/mpuc/regulated-utilities/electricity/choosing-supplier/migration-statistics'
 
-def get_eia_861_paths(start_year=2012, end_year=date.today().year):
+def _get_eia_861_paths(start_year=2012, end_year=date.today().year):
     resp = requests.get(eia_page)
     soup = BeautifulSoup(resp.content, 'html.parser')
     file_tags = soup.find('table').contents[3].find_all('a', {'class': 'ico zip'})
@@ -24,7 +25,7 @@ def get_eia_861_paths(start_year=2012, end_year=date.today().year):
 def download_eia_861(end_year=None, data_dir=None):
     target_regex = re.compile(r'Sales_Ult_Cust_\d{4}\.xls')
 
-    files = get_eia_861_paths(end_year=end_year)
+    files = _get_eia_861_paths(end_year=end_year)
 
     for file in files:
         file = requests.get(file)
@@ -105,9 +106,7 @@ def process_and_merge_861(data_dir, process_dir):
     print(f'Merged dataframe of {pivot_df.shape}')
 
     output_file_path = os.path.join(process_dir, 'sales_ult_cust_all_years.csv')
-    pivot_df.to_csv(output_file_path, index=False)
 
-    print(f'Wrote dataframe to CSV in {process_dir}')
 
     return pivot_df
 
