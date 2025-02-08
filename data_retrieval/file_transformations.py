@@ -120,6 +120,7 @@ def get_migration_file_url():
 def process_customer_migration_files(data_dir, target_dir):
 
     file_url = get_migration_file_url()
+    outputs = {}
 
     resp = requests.get(file_url)
     filepath = os.path.join(data_dir, 'customer_migration_statistics.xls')
@@ -181,8 +182,70 @@ def process_customer_migration_files(data_dir, target_dir):
 
         migration_df = pd.concat(dfs, axis=0)
 
-        migration_df.to_csv(os.path.join(target_dir, deets.get('filename')), index=False)
+        outputs[sheet.upper()] = migration_df
 
-        print(f'Captured and wrote {sheet} file of shape {migration_df.shape}')
+    return outputs
 
-    return migration_df
+def get_standard_offer(end_year=2023):
+    '''
+    Scraping only valid through 2023. Other years follow a much more complex
+    table structure.
+    :return:
+    '''
+
+    url = r'https://www.maine.gov/mpuc/regulated-utilities/electricity/delivery-rates'
+    html_content = requests.get(url).content
+    soup = BeautifulSoup(html_content, 'html.parser')
+    tables = soup.find_all('table')
+
+    def custom_selector(tag):
+        if tag.name == "table":
+            first_p = tag.find('p')
+            if first_p and re.search(r'RESIDENTIAL ELECTRICITY RATES IN MAINE',
+                                     first_p.get_text(),
+                                     re.IGNORECASE):
+                return True
+        return False
+
+    target_tables = soup.find_all(custom_selector)
+
+    collector = []
+
+    for table in target_tables:
+        find = table.select_one('th:-soup-contains("As of")')
+        try:
+            match = re.search(r'As of (.*)', find.text)
+            start_date = match.group(1).replace('*', '')
+        except AttributeError as e:
+            continue
+
+        th_elements = table.find_all('th')
+        for th in th_elements:
+            if re.search(r'(Supply Rate|Standard Offer)', th.get_text(), re.IGNORECASE):
+                std_offer_index = th_elements.index(th)
+
+        print(start_date)
+        print(std_offer_index)
+
+        pattern = re.compile(r'^Central Maine Power|^Emera Maine|^Versant Power', re.IGNORECASE)
+
+        # Find rows where any <td> matches the pattern
+        rows = [
+            tr for tr in table.find_all('tr')
+            if any(re.search(pattern, td.get_text()) for td in tr.find_all('td'))
+        ]
+
+        # Print the matching rows
+        for row in rows:
+            td_elements = row.select('td')
+            collector.append({
+                'start_date': start_date,
+                'utility': td_elements[0].text.strip(),
+                'std_offer_rate': re.match(r'\d+.\d{1}', td_elements[std_offer_index].text.strip()).group()
+            })
+
+    std_df = pd.DataFrame(collector)
+
+    std_df['start_date'] = pd.to_datetime(std_df['start_date'])
+
+    return std_df[std_df['start_date'].dt.year <= end_year]

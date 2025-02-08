@@ -1,6 +1,3 @@
-import os
-import pandas as pd
-import duckdb
 from database import Database
 
 import file_transformations as ft
@@ -17,11 +14,12 @@ process_dir.mkdir(exist_ok=True)
 
 ft.download_eia_861(end_year=2024, data_dir=raw_data_dir)
 eia_df = ft.process_and_merge_861(raw_data_dir, process_dir)
-migration_df = ft.process_customer_migration_files(raw_data_dir, process_dir)
+migration_outputs = ft.process_customer_migration_files(raw_data_dir, process_dir)
+standard_offer_df = ft.get_standard_offer()
 
 tables_to_load = {
-    'EIA_SALES': eia_df,
-    'MIGRATION_STATISTICS': migration_df
-}
+         'EIA_SALES': eia_df,
+         'STANDARD_OFFER': standard_offer_df
+         } | migration_outputs
 
 db.reload_data(tables_to_load)
