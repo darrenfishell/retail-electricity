@@ -251,5 +251,6 @@ def get_standard_offer(end_year=2023):
     std_df = pd.DataFrame(collector)
 
     std_df['start_date'] = pd.to_datetime(std_df['start_date'])
+    std_df['std_offer_rate'] = pd.to_numeric(std_df['std_offer_rate'])/100
 
     return std_df[std_df['start_date'].dt.year <= end_year]
