@@ -1,0 +1,11 @@
+retail_electricity:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: ../../data/retail_electricity.duckdb
+      schema: dbt_models
+
+#    <target-name>: # additional targets
+#      ...
+#     prod
