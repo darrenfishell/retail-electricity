@@ -5,7 +5,7 @@ retail_electricity:
       type: duckdb
       path: ../../data/retail_electricity.duckdb
       schema: dbt_models
-
-#    <target-name>: # additional targets
-#      ...
-#     prod
+    prod:
+      type: duckdb
+      path: ../../data/retail_electricity.duckdb
+      schema: dbt_models
