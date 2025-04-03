@@ -110,10 +110,10 @@ def process_and_merge_861():
     pivot_df['SALES_MWH'] = pivot_df['SALES_MWH'] * 1000
     pivot_df.rename(columns={'SALES_MWH': 'SALES_KWH'}, inplace=True)
 
+    numeric_columns = ['REVENUE', 'SALES_KWH', 'CUSTOMERS']
+    pivot_df[numeric_columns] = pivot_df[numeric_columns].apply(pd.to_numeric, errors='coerce')
+
     print(f'Merged dataframe of {pivot_df.shape}')
-
-    output_file_path = os.path.join(process_dir, 'sales_ult_cust_all_years.csv')
-
 
     return pivot_df
 
