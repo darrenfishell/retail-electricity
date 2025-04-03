@@ -17,8 +17,6 @@ import os
 def eia_df(end_year=2024):
     ft.download_eia_861(end_year=end_year)
     df = ft.process_and_merge_861()
-    numeric_columns = ['REVENUE', 'SALES_KWH', 'CUSTOMERS']
-    df[numeric_columns] = df[numeric_columns].apply(pd.to_numeric, errors='coerce')
     yield df
 
 @dlt.resource
@@ -33,7 +31,7 @@ def load_df():
 
 @dlt.resource
 def standard_offer_df():
-    df = ft.get_standard_offer()
+    df = pd.read_csv('prepared_data/standard_offer.csv')
     yield df
 
 db_path = os.path.abspath("data/retail_electricity.duckdb")
