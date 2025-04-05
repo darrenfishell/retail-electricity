@@ -5,7 +5,7 @@ WITH standard_offer as (
 			LEAD(start_date) 
 			OVER (PARTITION BY utility ORDER BY start_date)
 			- INTERVAL 1 DAY
-			, TODAY() )
+			, CURRENT_DATE )
 		as end_date,
 		utility,
 		std_offer_rate
@@ -46,10 +46,7 @@ SELECT
 	start_date,
 	end_date,
 	grid_operator,
-	utility,
-	load_kwh,
-	std_offer_rate,
-	share_of_load
+	std_offer_rate
 FROM load_share
 WHERE grid_operator = 'NBSO'
 UNION ALL 
@@ -57,10 +54,7 @@ SELECT
 	start_date,
 	end_date,
 	grid_operator,
-	utility,
-	load_kwh,
-	SUM( std_offer_rate::FLOAT * share_of_load ) AS std_offer_rate,
-	share_of_load
+	SUM( std_offer_rate::FLOAT * share_of_load ) AS std_offer_rate
 FROM load_share 
 WHERE grid_operator != 'NBSO'
 GROUP BY ALL
