@@ -3,9 +3,9 @@ retail_electricity:
   outputs:
     dev:
       type: duckdb
-      path: ../../data/retail_electricity.duckdb
+      path: ../data/retail_electricity.duckdb
       schema: dbt_models
     prod:
       type: duckdb
-      path: ../../data/retail_electricity.duckdb
+      path: ../data/retail_electricity.duckdb
       schema: dbt_models

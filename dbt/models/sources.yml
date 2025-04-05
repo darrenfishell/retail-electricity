@@ -3,7 +3,7 @@ version: 2
 sources:
   - name: retail_electricity
     database: retail_electricity
-    schema: retail_electricity_dlt
+    schema: stage
     tables:
       - name: standard_offer_df
       - name: customers_df

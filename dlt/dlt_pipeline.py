@@ -32,14 +32,15 @@ def load_df():
 @dlt.resource
 def standard_offer_df():
     df = pd.read_csv('prepared_data/standard_offer.csv')
+    df['start_date'] = pd.to_datetime(df['start_date'], format='%Y-%m-%d')
     yield df
 
-db_path = os.path.abspath("data/retail_electricity.duckdb")
+db_path = os.path.abspath('data/retail_electricity.duckdb')
 
 pipeline = dlt.pipeline(
     pipeline_name='retail_electricity_pipeline',
     destination=dlt.destinations.duckdb(db_path),
-    dataset_name='retail_electricity_dlt'
+    dataset_name='stage'
 )
 
 @dlt.source

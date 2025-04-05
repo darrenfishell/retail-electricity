@@ -9,7 +9,7 @@ WITH standard_offer as (
 		as end_date,
 		utility,
 		std_offer_rate
-	FROM retail_electricity_dlt.standard_offer_df sod
+	FROM stage.standard_offer_df sod
 )
 , add_load_totals as (
 	SELECT 
