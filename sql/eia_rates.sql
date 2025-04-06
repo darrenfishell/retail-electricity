@@ -6,7 +6,7 @@ SELECT
 	sales_kwh,
 	customers,
 	revenue / sales_kwh as kwh_rate
-FROM retail_electricity_dlt.eia_df
+FROM stage.eia_df
 WHERE state = 'ME'
 AND ownership ILIKE '%RETAIL%'
 AND customer_type = 'RESIDENTIAL'
