@@ -1,5 +1,5 @@
 import dlt
-import file_transformations as ft
+import dlt_pipeline.file_transformations as ft
 import pandas as pd
 import os
 
@@ -50,10 +50,13 @@ def all_data():
     yield load_df()
     yield standard_offer_df()
 
-# Run pipeline using the generator
-load_info = pipeline.run(
-    all_data(),
-    write_disposition='replace'
-)
+def main():
+    # Run pipeline using the generator
+    load_info = pipeline.run(
+        all_data(),
+        write_disposition='replace'
+    )
+    print(load_info)
 
-print(load_info)
+if __name__ == '__main__':
+    main()
