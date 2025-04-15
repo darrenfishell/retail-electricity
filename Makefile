@@ -1,6 +1,6 @@
 # Variables
 ENV_NAME := retail-electricity
-ENV_FILE := environment.yml
+ENV_FILE := retail-electricity.yml
 PYTHON_SCRIPT := run_pipeline.py
 
 # Default target
