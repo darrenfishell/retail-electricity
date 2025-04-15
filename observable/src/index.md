@@ -2,11 +2,22 @@
 const json_content = await FileAttachment(`data/cost_comparison.json`).json();
 const cost_db = await DuckDBClient.of({cost_db: json_content});
 const year_summary = await cost_db.sql`
-    SELECT year::INTEGER AS year, 
-    SUM(res_cost_variance) AS variance
+    SELECT 
+        year::INTEGER AS year, 
+        SUM(res_cost_variance) AS variance
     FROM cost_db
     GROUP BY year
-`
+`;
+const premium_total_result = Array.from(await cost_db.sql`
+    SELECT 
+        SUM(res_cost_variance) AS total_variance,
+        MIN(year) AS min_year,
+        MAX(year) AS max_year
+    FROM cost_db
+`);
+const total_variance = premium_total_result[0]?.total_variance;
+const formatted_total = "$" + (total_variance / 1_000_000).toFixed(1) + "M";
+const year_range = premium_total_result[0]?.min_year + " - " + premium_total_result[0]?.max_year 
 ```
 
 <div class="hero">
@@ -18,25 +29,39 @@ const year_summary = await cost_db.sql`
 ```js
 display(
   Plot.plot({
-    title: "Standard offer annual premium",
-    x: { 
+    title: `Standard Offer Annual Premium | ${formatted_total} from ${year_range}`,
+    width: Math.max(500, width), 
+    height: 400,
+    x: {
         label: "Year",
         scale: { 
             type: 'band',
             interval: 2
-        }
+        },
+        tickFormat: (d) => `${d}`
     },
-    y: { grid: true, label: "Cost over standard offer" },
+    y: { 
+        grid: true, 
+        label: "Cost over standard offer"
+    },
     marks: [
       Plot.rectY(year_summary, {
         x: "year", 
         y: "variance", 
         fill: "steelBlue",
         target: "_top"
-      })
+      }), 
+        Plot.text(year_summary, {
+          x: "year",
+          y: "variance",
+          text: d => "$" + (d.variance / 1_000_000).toFixed(1) + "M",
+          dy: -6, // move the label a bit above the top of the bar
+          fontSize: 12,
+          fill: "white",
+          textAnchor: "middle"
+        })
     ]
-  })
-);
+  }));
 ```
 
 Here are some ideas of things you could try…
