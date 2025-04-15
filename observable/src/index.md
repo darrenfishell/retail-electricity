@@ -1,6 +1,13 @@
----
-toc: false
----
+```js
+const json_content = await FileAttachment(`data/cost_comparison.json`).json();
+const cost_db = await DuckDBClient.of({cost_db: json_content});
+const year_summary = await cost_db.sql`
+    SELECT year::INTEGER AS year, 
+    SUM(res_cost_variance) AS variance
+    FROM cost_db
+    GROUP BY year
+`
+```
 
 <div class="hero">
   <h1>Maine&#x27;s retail electricity ripoff</h1>
@@ -8,38 +15,29 @@ toc: false
   <a href="https://observablehq.com/framework/getting-started">Get started<span style="display: inline-block; margin-left: 0.25rem;">↗︎</span></a>
 </div>
 
-<div class="grid grid-cols-2" style="grid-auto-rows: 504px;">
-  <div class="card">${
-    resize((width) => Plot.plot({
-      title: "Your awesomeness over time 🚀",
-      subtitle: "Up and to the right!",
-      width,
-      y: {grid: true, label: "Awesomeness"},
-      marks: [
-        Plot.ruleY([0]),
-        Plot.lineY(aapl, {x: "Date", y: "Close", tip: true})
-      ]
-    }))
-  }</div>
-  <div class="card">${
-    resize((width) => Plot.plot({
-      title: "How big are penguins, anyway? 🐧",
-      width,
-      grid: true,
-      x: {label: "Body mass (g)"},
-      y: {label: "Flipper length (mm)"},
-      color: {legend: true},
-      marks: [
-        Plot.linearRegressionY(penguins, {x: "body_mass_g", y: "flipper_length_mm", stroke: "species"}),
-        Plot.dot(penguins, {x: "body_mass_g", y: "flipper_length_mm", stroke: "species", tip: true})
-      ]
-    }))
-  }</div>
-</div>
-
----
-
-## Next steps
+```js
+display(
+  Plot.plot({
+    title: "Standard offer annual premium",
+    x: { 
+        label: "Year",
+        scale: { 
+            type: 'band',
+            interval: 2
+        }
+    },
+    y: { grid: true, label: "Cost over standard offer" },
+    marks: [
+      Plot.rectY(year_summary, {
+        x: "year", 
+        y: "variance", 
+        fill: "steelBlue",
+        target: "_top"
+      })
+    ]
+  })
+);
+```
 
 Here are some ideas of things you could try…
 
