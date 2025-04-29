@@ -21,7 +21,10 @@ const total_variance = premium_total_result[0]?.total_variance;
 const formatted_total = "$" + (total_variance / 1_000_000).toFixed(1) + "M";
 const year_range = premium_total_result[0]?.min_year + " - " + premium_total_result[0]?.max_year
 const dark = Generators.dark();
-const text_fill = dark ? "white" : "black";
+```
+
+```js
+const text_fill = dark ? 'white' : 'black';
 ```
 
 <div class="hero">
@@ -29,77 +32,90 @@ const text_fill = dark ? "white" : "black";
 # Maine's ${formatted_total} retail electricity ripoff (and counting)
 
 ## Each year since 2013, Maine customers pay more, on average, with retail electricity suppliers than if they'd taken the default electricity price, called the standard offer.
+
 </div>
 
 # Retail suppliers
 
-Some suppliers, such as Clearview Electric, offered electricity supplied by renewable sources, at a premium cost. In most cases, retail suppliers acquire power from sources that match the regional mix of power generation.
+Some suppliers, such as Clearview Electric, offered electricity supplied by renewable sources, at a premium cost. In
+most cases, retail suppliers acquire power from sources that match the regional mix of power generation.
 
 ```js
 function createAnnualPremiumChart({
-  data,
-  totalAmount,
-  yearRange,
-  width = 500,
-  height = 400,
-  barColor = "steelBlue",
-  title = null
-}) {
-  return Plot.plot({
-    title: title || `Retail supplier charges above the standard offer`,
-    subtitle: `Comparing aggregate sales/kwh to a weighted standard offer from ${year_range}`,
-    width: Math.max(500, width),
-    height: height,
-    x: {
-      label: "Year",
-      scale: {
-        type: 'band',
-        interval: 2
-      },
-      tickFormat: (d) => `${d}`
-    },
-    y: {
-      grid: true,
-      label: "Cost over standard offer"
-    },
-    marks: [
-      Plot.rectY(data, {
-        x: "year",
-        y: "variance",
-        fill: barColor,
-        target: "_top"
-      }),
-      Plot.text(data, {
-        x: "year",
-        y: "variance",
-        text: d => "$" + (d.variance / 1_000_000).toFixed(1) + "M",
-        dy: -6, // move the label a bit above the top of the bar
-        fontSize: 12,
-        fill: text_fill,
-        textAnchor: "middle"
-      }),
-      Plot.axisY({
-          fontSize: 16, 
-          marginLeft: 50, 
-          tickFormat: d => "$" + (d / 1_000_000).toFixed(0) + "M" 
-      }),
-      Plot.axisX({
-          fontSize: 16,
-          tickFormat: d => d.toString(),
-          label: null
-      })
-        
-    ]
-  });
+                                      data,
+                                      totalAmount,
+                                      yearRange,
+                                      width = 500,
+                                      height = 400,
+                                      barColor = "steelBlue",
+                                      title = null
+                                  }) {
+    return Plot.plot({
+        title: title || `Retail supplier charges above the standard offer`,
+        subtitle: `Comparing aggregate sales/kwh to a weighted standard offer from ${year_range}`,
+        width: Math.max(500, width),
+        marginTop: 100,
+        height: height,
+        x: {
+            label: "Year",
+            scale: {
+                type: 'band',
+                interval: 2
+            },
+            tickFormat: (d) => `${d}`
+        },
+        y: {
+            grid: true,
+            label: "Cost over standard offer"
+        },
+        marks: [
+            Plot.rectY(data, {
+                x: "year",
+                y: "variance",
+                fill: barColor,
+                target: "_top"
+            }),
+            Plot.text(data, {
+                x: "year",
+                y: "variance",
+                text: d => "$" + (d.variance / 1_000_000).toFixed(1) + "M",
+                dy: -6, // move the label a bit above the top of the bar
+                fontSize: 12,
+                fill: text_fill,
+                textAnchor: "middle"
+            }),
+            Plot.axisY({
+                fontSize: 16,
+                marginLeft: 50,
+                tickFormat: d => "$" + (d / 1_000_000).toFixed(0) + "M"
+            }),
+            Plot.axisX({
+                fontSize: 16,
+                tickFormat: d => d.toString(),
+                label: null
+            }),
+            Plot.tip(
+              [`Electricity Maine makes up 81 percent of the market in this year, by kWh sales.`],
+              {
+                  x: 2015, 
+                  y: 37_000_000, 
+                  dy: -10, 
+                  anchor: "bottom",
+                  fontSize: 16
+              },
+            )
+
+        ]
+    });
 }
 
 // Use the function to create and display the chart
 const barChart = createAnnualPremiumChart({
-  data: year_summary,
-  totalAmount: formatted_total,
-  yearRange: year_range,
-  width: width,
-  height: 400
+    data: year_summary,
+    totalAmount: formatted_total,
+    yearRange: year_range,
+    width: width,
+    height: 400
 });
 
 display(barChart)
@@ -121,34 +137,45 @@ const utilityChart = Plot.plot({
     title: 'Charges to customers above the standard offer',
     subtitle: `Comparing aggregate sales/kwh to a weighted standard offer from ${year_range}`,
     height: 500,
-    width: Math.max(500, width/2),
+    width: Math.max(500, width / 2),
+    style: {
+      // Align title/subtitle to the left
+      ".plot-title": {
+        "text-anchor": "start"
+      },
+      ".plot-subtitle": {
+        "text-anchor": "start"
+      }
+    },
     marks: [
-      Plot.barX(utility_summary, {
-        x: "cost_variance",
-        y: "name",
-        fill: "steelblue",  // Add color to the bars
-        tip: true,
-        sort: {y: "x", reverse: true}
-      }), 
-      Plot.axisY({fontSize: 16}),
-      Plot.axisX({
-          fontSize: 16, 
-          tickFormat: d => "$" + (d / 1_000_000).toFixed(0) + "M",
-          label: null
-      }),
-      // Optional: Add values at the end of each bar
-      Plot.text(utility_summary, {
-        x: "cost_variance",
-        y: "name",
-        text: d => "$" + (d.cost_variance / 1_000_000).toFixed(2) + "M",
-        dx: 5,
-        fill: text_fill,
-        fontSize: 14,
-        textAnchor: "start",
-        marginLeft: 150,
-        marginRight: 100,
-        sort: {y: "x", reverse: true}
-      })
+        Plot.barX(utility_summary, {
+            x: "cost_variance",
+            y: "name",
+            fill: "steelblue",  // Add color to the bars
+            tip: true,
+            sort: {y: "x", reverse: true}
+        }),
+        Plot.axisY({
+            fontSize: 16, 
+            marginLeft: width/4
+        }),
+        Plot.axisX({
+            fontSize: 16,
+            tickFormat: d => "$" + (d / 1_000_000).toFixed(0) + "M",
+            label: null
+        }),
+        // Optional: Add values at the end of each bar
+        Plot.text(utility_summary, {
+            x: "cost_variance",
+            y: "name",
+            text: d => "$" + (d.cost_variance / 1_000_000).toFixed(2) + "M",
+            dx: 5,
+            fill: text_fill,
+            fontSize: 14,
+            textAnchor: "start",
+            marginRight: 100,
+            sort: {y: "x", reverse: true}
+        })
     ],
     x: {
         label: "Cost Variance ($)",
@@ -162,7 +189,7 @@ const utilityChart = Plot.plot({
         label: null,
         fontSize: 14
     }
-  });
+});
 
 const utility = view(utilityChart)
 ```
@@ -191,55 +218,52 @@ const price_trends = await cost_db.sql`
 
 // Create an interactive line chart with hover effects
 const lineChart = Plot.plot({
-        title: `Electricity Price Trends: Standard Offer vs. Retail Rates`,
-        subtitle: `Plotted against the annual average for ${utility?.name ?? 'all suppliers'}`,
-        width: Math.max(600, width),
-        height: 700,
-        color: {legend: true},
-        x: {label: "Year"},
-        y: {
-            label: "Price (¢/kWh)",
-            grid: true,
-            zero: true
-        },
-        marks: [
-            // Add a horizontal zero line
-            Plot.ruleY([0]),
-            
-            Plot.axisY({fontSize: 30}),
-            Plot.axisX({
-                fontSize: 30, 
-                label: null, 
-                tickFormat: d => d.toString()
-            }),
-            
-            // Retail price line
-            Plot.line(price_trends, {
-                x: "year", 
+    title: `Electricity Price Trends: Standard Offer vs. Retail Rates`,
+    subtitle: `Plotted against the annual average for ${utility?.name ?? 'all suppliers'}`,
+    // className: "custom-plot",
+    width: Math.max(600, width),
+    height: 700,
+    marginRight: width / 6,
+    color: {legend: true},
+    x: {label: "Year"},
+    y: {
+        label: "Price (¢/kWh)",
+        grid: true,
+        zero: true
+    },
+    marks: [
+        // Add a horizontal zero line
+        Plot.ruleY([0]),
+        Plot.axisY({fontSize: 30}),
+        Plot.axisX({
+            fontSize: 30,
+            label: null,
+            tickFormat: d => d.toString()
+        }),
+        // Retail price line
+        Plot.line(price_trends, {
+            x: "year",
+            y: "avg_price",
+            stroke: 'category',
+            strokeWidth: 8,
+            tip: true,
+            title: d => `Year: ${d.year}\nRetail Price: $${d.avg_price.toFixed(2)}¢/kWh`
+        }),
+        // Add label for standard offer line using select transform to get the last point
+        Plot.text(price_trends, Plot.selectLast({
+                x: "year",
                 y: "avg_price",
-                stroke: 'category', 
-                strokeWidth: 8,
-                tip: true,
-                title: d => `Year: ${d.year}\nRetail Price: $${d.avg_price.toFixed(2)}¢/kWh`,
-                tooltip: {
-                    stroke: 'crimson',
-                    strokeWidth: 3
-                }
-            }),
-            
-            // Add label for standard offer line using select transform to get the last point
-            Plot.text(price_trends, Plot.selectLast({
-                x: "year", 
-                y: "avg_price", 
                 z: 'category',
-                text: (d) => '$' + (d.avg_price).toFixed(2) + '/kwh', 
-                frameAnchor: "left", 
+                text: (d) => '$' + (d.avg_price).toFixed(2) + '/kwh',
+                frameAnchor: "left",
                 dx: 7,
                 fontSize: 30
             }
-            ))
-        ]
-    });
+        ))
+    ]
+});
+
+const line_trend = view(lineChart)
 ```
 
 <div class="dashboard">
@@ -253,22 +277,3 @@ const lineChart = Plot.plot({
     </div>
 </div>
 </div>
-
-<style>
-  .dashboard {
-    max-width: ${width}px;
-    margin: 0 auto;
-    font-family: system-ui, sans-serif;
-  }
-
-  .chart-container {
-    background: ${text_fill};
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  }
-  
-  @media (max-width: 768px) {
-    .grid-cols-2 {
-      grid-template-columns: 1fr !important;
-    }
-  }
-</style>
