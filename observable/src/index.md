@@ -73,7 +73,18 @@ function createAnnualPremiumChart({
         fontSize: 12,
         fill: text_fill,
         textAnchor: "middle"
+      }),
+      Plot.axisY({
+          fontSize: 16, 
+          marginLeft: 50, 
+          tickFormat: d => "$" + (d / 1_000_000).toFixed(0) + "M" 
+      }),
+      Plot.axisX({
+          fontSize: 16,
+          tickFormat: d => d.toString(),
+          label: null
       })
+        
     ]
   });
 }
@@ -106,7 +117,7 @@ const utilityChart = Plot.plot({
     title: 'Charges to customers above the standard offer',
     subtitle: `Comparing aggregate sales/kwh to a weighted standard offer from ${year_range}`,
     height: 500,
-    width: Math.min(300, width),
+    width: Math.max(500, width/2),
     marks: [
       Plot.barX(utility_summary, {
         x: "cost_variance",
@@ -116,6 +127,11 @@ const utilityChart = Plot.plot({
         sort: {y: "x", reverse: true}
       }), 
       Plot.axisY({fontSize: 16}),
+      Plot.axisX({
+          fontSize: 16, 
+          tickFormat: d => "$" + (d / 1_000_000).toFixed(0) + "M",
+          label: null
+      }),
       // Optional: Add values at the end of each bar
       Plot.text(utility_summary, {
         x: "cost_variance",
@@ -125,13 +141,18 @@ const utilityChart = Plot.plot({
         fill: text_fill,
         fontSize: 14,
         textAnchor: "start",
-        marginLeft: 200,
+        marginLeft: 150,
+        marginRight: 100,
         sort: {y: "x", reverse: true}
       })
     ],
     x: {
         label: "Cost Variance ($)",
-        tickFormat: d => "$" + (d / 1_000_000).toFixed(0) + "M"
+        tickFormat: d => "$" + (d / 1_000_000).toFixed(0) + "M",
+        scale: {
+            type: 'band',
+            interval: 40_000_000
+        },
     },
     y: {
         label: null,
@@ -171,9 +192,7 @@ const lineChart = Plot.plot({
         width: Math.max(600, width),
         height: 700,
         color: {legend: true},
-        x: {
-            label: "Year"
-        },
+        x: {label: "Year"},
         y: {
             label: "Price (¢/kWh)",
             grid: true,
@@ -183,8 +202,12 @@ const lineChart = Plot.plot({
             // Add a horizontal zero line
             Plot.ruleY([0]),
             
-            Plot.axisY({fontSize: 24}),
-            Plot.axisX({fontSize: 24, label: null, tickFormat: d => d.toString() }),
+            Plot.axisY({fontSize: 30}),
+            Plot.axisX({
+                fontSize: 30, 
+                label: null, 
+                tickFormat: d => d.toString()
+            }),
             
             // Retail price line
             Plot.line(price_trends, {
@@ -216,8 +239,6 @@ const lineChart = Plot.plot({
 
 <div class="dashboard">
 
-# Maine Electricity Market
-
 <div class="grid grid-cols-2" style="gap: 1rem; align-items: start;">
     <div class="chart-container">
       ${utilityChart}
@@ -246,27 +267,3 @@ const lineChart = Plot.plot({
     }
   }
 </style>
-
-<div class="grid grid-cols-4">
-  <div class="card">
-    Chart your own data using <a href="https://observablehq.com/framework/lib/plot"><code>Plot</code></a> and <a href="https://observablehq.com/framework/files"><code>FileAttachment</code></a>. Make it responsive using <a href="https://observablehq.com/framework/javascript#resize(render)"><code>resize</code></a>.
-  </div>
-  <div class="card">
-    Create a <a href="https://observablehq.com/framework/project-structure">new page</a> by adding a Markdown file (<code>whatever.md</code>) to the <code>src</code> folder.
-  </div>
-  <div class="card">
-    Add a drop-down menu using <a href="https://observablehq.com/framework/inputs/select"><code>Inputs.select</code></a> and use it to filter the data shown in a chart.
-  </div>
-  <div class="card">
-    Write a <a href="https://observablehq.com/framework/loaders">data loader</a> that queries a local database or API, generating a data snapshot on build.
-  </div>
-  <div class="card">
-    Import a <a href="https://observablehq.com/framework/imports">recommended library</a> from npm, such as <a href="https://observablehq.com/framework/lib/leaflet">Leaflet</a>, <a href="https://observablehq.com/framework/lib/dot">GraphViz</a>, <a href="https://observablehq.com/framework/lib/tex">TeX</a>, or <a href="https://observablehq.com/framework/lib/duckdb">DuckDB</a>.
-  </div>
-  <div class="card">
-    Ask for help, or share your work or ideas, on our <a href="https://github.com/observablehq/framework/discussions">GitHub discussions</a>.
-  </div>
-  <div class="card">
-    Visit <a href="https://github.com/observablehq/framework">Framework on GitHub</a> and give us a star. Or file an issue if you’ve found a bug!
-  </div>
-</div>
