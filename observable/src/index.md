@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="./styles/style.css">
+
 ```js
 const json_content = await FileAttachment(`data/cost_comparison.json`).json();
 const cost_db = await DuckDBClient.of({cost_db: json_content});
@@ -17,54 +19,233 @@ const premium_total_result = Array.from(await cost_db.sql`
 `);
 const total_variance = premium_total_result[0]?.total_variance;
 const formatted_total = "$" + (total_variance / 1_000_000).toFixed(1) + "M";
-const year_range = premium_total_result[0]?.min_year + " - " + premium_total_result[0]?.max_year 
+const year_range = premium_total_result[0]?.min_year + " - " + premium_total_result[0]?.max_year
+const dark = Generators.dark();
+const text_fill = dark ? "white" : "black";
 ```
 
 <div class="hero">
-  <h1>Maine&#x27;s retail electricity ripoff</h1>
-  <h2>Welcome to your new app! Edit&nbsp;<code style="font-size: 90%;">src/index.md</code> to change this page.</h2>
-  <a href="https://observablehq.com/framework/getting-started">Get started<span style="display: inline-block; margin-left: 0.25rem;">↗︎</span></a>
+
+# Maine's ${formatted_total} retail electricity ripoff (and counting)
+
+## Each year since 2013, Maine customers pay more, on average, with retail electricity suppliers than if they'd taken the default electricity price, called the standard offer.
 </div>
 
 ```js
-display(
-  Plot.plot({
-    title: `Standard Offer Annual Premium | ${formatted_total} from ${year_range}`,
-    width: Math.max(500, width), 
-    height: 400,
+function createAnnualPremiumChart({
+  data,
+  totalAmount,
+  yearRange,
+  width = 500,
+  height = 400,
+  barColor = "steelBlue",
+  title = null
+}) {
+  return Plot.plot({
+    title: title || `Retail supplier charges above the standard offer`,
+    subtitle: `Comparing aggregate sales/kwh to a weighted standard offer from ${year_range}`,
+    width: Math.max(500, width),
+    height: height,
     x: {
-        label: "Year",
-        scale: { 
-            type: 'band',
-            interval: 2
-        },
-        tickFormat: (d) => `${d}`
+      label: "Year",
+      scale: {
+        type: 'band',
+        interval: 2
+      },
+      tickFormat: (d) => `${d}`
     },
-    y: { 
-        grid: true, 
-        label: "Cost over standard offer"
+    y: {
+      grid: true,
+      label: "Cost over standard offer"
     },
     marks: [
-      Plot.rectY(year_summary, {
-        x: "year", 
-        y: "variance", 
-        fill: "steelBlue",
+      Plot.rectY(data, {
+        x: "year",
+        y: "variance",
+        fill: barColor,
         target: "_top"
-      }), 
-        Plot.text(year_summary, {
-          x: "year",
-          y: "variance",
-          text: d => "$" + (d.variance / 1_000_000).toFixed(1) + "M",
-          dy: -6, // move the label a bit above the top of the bar
-          fontSize: 12,
-          fill: "white",
-          textAnchor: "middle"
-        })
+      }),
+      Plot.text(data, {
+        x: "year",
+        y: "variance",
+        text: d => "$" + (d.variance / 1_000_000).toFixed(1) + "M",
+        dy: -6, // move the label a bit above the top of the bar
+        fontSize: 12,
+        fill: text_fill,
+        textAnchor: "middle"
+      })
     ]
-  }));
+  });
+}
+
+// Use the function to create and display the chart
+const barChart = createAnnualPremiumChart({
+  data: year_summary,
+  totalAmount: formatted_total,
+  yearRange: year_range,
+  width: width,
+  height: 400
+});
+
+display(barChart)
 ```
 
-Here are some ideas of things you could try…
+```js
+// Query data by utility company for the bubble chart
+const utility_summary = await cost_db.sql`
+    SELECT 
+        utility_name AS name,
+        SUM(res_cost_variance) AS cost_variance,
+        SUM(sales_kwh) as sales_kwh
+    FROM cost_db
+    GROUP BY utility_name
+    ORDER BY cost_variance DESC
+`;
+
+const utilityChart = Plot.plot({
+    title: 'Charges to customers above the standard offer',
+    subtitle: `Comparing aggregate sales/kwh to a weighted standard offer from ${year_range}`,
+    height: 500,
+    width: Math.min(300, width),
+    marks: [
+      Plot.barX(utility_summary, {
+        x: "cost_variance",
+        y: "name",
+        fill: "steelblue",  // Add color to the bars
+        tip: true,
+        sort: {y: "x", reverse: true}
+      }), 
+      Plot.axisY({fontSize: 16}),
+      // Optional: Add values at the end of each bar
+      Plot.text(utility_summary, {
+        x: "cost_variance",
+        y: "name",
+        text: d => "$" + (d.cost_variance / 1_000_000).toFixed(2) + "M",
+        dx: 5,
+        fill: text_fill,
+        fontSize: 14,
+        textAnchor: "start",
+        marginLeft: 200,
+        sort: {y: "x", reverse: true}
+      })
+    ],
+    x: {
+        label: "Cost Variance ($)",
+        tickFormat: d => "$" + (d / 1_000_000).toFixed(0) + "M"
+    },
+    y: {
+        label: null,
+        fontSize: 14
+    }
+  });
+
+const utility = view(utilityChart)
+```
+
+```js
+// Query time series data for the line chart with updated SQL
+const price_trends = await cost_db.sql`
+    SELECT * FROM
+        (SELECT
+            year::INTEGER AS year,
+            AVG(kwh_rate) AS avg_price,
+            'Retail supplier' AS category
+        FROM cost_db
+        WHERE utility_name = ${utility?.name}
+            OR ${utility?.name ?? 'all'} = 'all'
+        GROUP BY year
+        UNION ALL
+        SELECT 
+            year::INTEGER AS year,
+            AVG(weighted_standard_offer) AS avg_price,
+            'Standard offer' AS category
+        FROM cost_db
+        GROUP BY year
+    ) ORDER BY year
+`;
+
+// Create an interactive line chart with hover effects
+const lineChart = Plot.plot({
+        title: `Electricity Price Trends: Standard Offer vs. Retail Rates`,
+        subtitle: `Plotted against the annual average for ${utility?.name ?? 'all suppliers'}`,
+        width: Math.max(600, width),
+        height: 700,
+        color: {legend: true},
+        x: {
+            label: "Year"
+        },
+        y: {
+            label: "Price (¢/kWh)",
+            grid: true,
+            zero: true
+        },
+        marks: [
+            // Add a horizontal zero line
+            Plot.ruleY([0]),
+            
+            Plot.axisY({fontSize: 24}),
+            Plot.axisX({fontSize: 24, label: null, tickFormat: d => d.toString() }),
+            
+            // Retail price line
+            Plot.line(price_trends, {
+                x: "year", 
+                y: "avg_price",
+                stroke: 'category', 
+                strokeWidth: 2,
+                tip: true,
+                title: d => `Year: ${d.year}\nRetail Price: $${d.avg_price.toFixed(2)}¢/kWh`,
+                tooltip: {
+                    stroke: 'crimson',
+                    strokeWidth: 3
+                }
+            }),
+            
+            // Add label for standard offer line using select transform to get the last point
+            Plot.text(price_trends, Plot.selectLast({
+                x: "year", 
+                y: "avg_price", 
+                z: 'category',
+                text: "avg_price", 
+                frameAnchor: "left", 
+                dx: 7
+            }
+            ))
+        ]
+    });
+```
+
+<div class="dashboard">
+
+# Maine Electricity Market
+
+<div class="grid grid-cols-2" style="gap: 1rem; align-items: start;">
+    <div class="chart-container">
+      ${utilityChart}
+    </div>
+    <div class="chart-container">
+      ${lineChart}
+    </div>
+</div>
+</div>
+
+<style>
+  .dashboard {
+    max-width: ${width}px;
+    margin: 0 auto;
+    font-family: system-ui, sans-serif;
+  }
+
+  .chart-container {
+    background: ${text_fill};
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+  
+  @media (max-width: 768px) {
+    .grid-cols-2 {
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style>
 
 <div class="grid grid-cols-4">
   <div class="card">
@@ -89,46 +270,3 @@ Here are some ideas of things you could try…
     Visit <a href="https://github.com/observablehq/framework">Framework on GitHub</a> and give us a star. Or file an issue if you’ve found a bug!
   </div>
 </div>
-
-<style>
-
-.hero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family: var(--sans-serif);
-  margin: 4rem 0 8rem;
-  text-wrap: balance;
-  text-align: center;
-}
-
-.hero h1 {
-  margin: 1rem 0;
-  padding: 1rem 0;
-  max-width: none;
-  font-size: 14vw;
-  font-weight: 900;
-  line-height: 1;
-  background: linear-gradient(30deg, var(--theme-foreground-focus), currentColor);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.hero h2 {
-  margin: 0;
-  max-width: 34em;
-  font-size: 20px;
-  font-style: initial;
-  font-weight: 500;
-  line-height: 1.5;
-  color: var(--theme-foreground-muted);
-}
-
-@media (min-width: 640px) {
-  .hero h1 {
-    font-size: 90px;
-  }
-}
-
-</style>
