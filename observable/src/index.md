@@ -31,6 +31,10 @@ const text_fill = dark ? "white" : "black";
 ## Each year since 2013, Maine customers pay more, on average, with retail electricity suppliers than if they'd taken the default electricity price, called the standard offer.
 </div>
 
+# Retail suppliers
+
+Some suppliers, such as Clearview Electric, offered electricity supplied by renewable sources, at a premium cost. In most cases, retail suppliers acquire power from sources that match the regional mix of power generation.
+
 ```js
 function createAnnualPremiumChart({
   data,
@@ -214,7 +218,7 @@ const lineChart = Plot.plot({
                 x: "year", 
                 y: "avg_price",
                 stroke: 'category', 
-                strokeWidth: 2,
+                strokeWidth: 8,
                 tip: true,
                 title: d => `Year: ${d.year}\nRetail Price: $${d.avg_price.toFixed(2)}¢/kWh`,
                 tooltip: {
@@ -228,9 +232,10 @@ const lineChart = Plot.plot({
                 x: "year", 
                 y: "avg_price", 
                 z: 'category',
-                text: "avg_price", 
+                text: (d) => '$' + (d.avg_price).toFixed(2) + '/kwh', 
                 frameAnchor: "left", 
-                dx: 7
+                dx: 7,
+                fontSize: 30
             }
             ))
         ]
