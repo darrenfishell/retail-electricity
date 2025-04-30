@@ -29,7 +29,7 @@ const text_fill = dark ? 'white' : 'black';
 
 <div class="hero">
 
-# Maine's ${formatted_total} retail electricity ripoff (and counting)
+# Maine's ${formatted_total} (and counting) retail electricity ripoff
 
 ## Each year since 2013, Maine customers pay more, on average, with retail electricity suppliers than if they'd taken the default electricity price, called the standard offer.
 
@@ -55,6 +55,7 @@ function createAnnualPremiumChart({
         subtitle: `Comparing aggregate sales/kwh to a weighted standard offer from ${year_range}`,
         width: Math.max(500, width),
         marginTop: 100,
+        className: 'custom-plot',
         height: height,
         x: {
             label: "Year",
@@ -80,29 +81,24 @@ function createAnnualPremiumChart({
                 y: "variance",
                 text: d => "$" + (d.variance / 1_000_000).toFixed(1) + "M",
                 dy: -6, // move the label a bit above the top of the bar
-                fontSize: 12,
-                fill: text_fill,
-                textAnchor: "middle"
             }),
             Plot.axisY({
-                fontSize: 16,
                 marginLeft: 50,
                 tickFormat: d => "$" + (d / 1_000_000).toFixed(0) + "M"
             }),
             Plot.axisX({
-                fontSize: 16,
                 tickFormat: d => d.toString(),
                 label: null
             }),
             Plot.tip(
-              [`Electricity Maine makes up 81 percent of the market in this year, by kWh sales.`],
-              {
-                  x: 2015, 
-                  y: 37_000_000, 
-                  dy: -10, 
-                  anchor: "bottom",
-                  fontSize: 16
-              },
+                [`Electricity Maine makes up 81 percent of the market in this year, by kWh sales.`],
+                {
+                    x: 2015,
+                    y: 37_000_000,
+                    dy: -10,
+                    anchor: "bottom",
+                    fill: 'black'
+                },
             )
 
         ]
@@ -136,17 +132,7 @@ const utility_summary = await cost_db.sql`
 const utilityChart = Plot.plot({
     title: 'Charges to customers above the standard offer',
     subtitle: `Comparing aggregate sales/kwh to a weighted standard offer from ${year_range}`,
-    height: 500,
-    width: Math.max(500, width / 2),
-    style: {
-      // Align title/subtitle to the left
-      ".plot-title": {
-        "text-anchor": "start"
-      },
-      ".plot-subtitle": {
-        "text-anchor": "start"
-      }
-    },
+    className: 'custom-plot',
     marks: [
         Plot.barX(utility_summary, {
             x: "cost_variance",
@@ -156,11 +142,10 @@ const utilityChart = Plot.plot({
             sort: {y: "x", reverse: true}
         }),
         Plot.axisY({
-            fontSize: 16, 
-            marginLeft: width/4
+            marginLeft: width / 3.25,
+            label: null
         }),
         Plot.axisX({
-            fontSize: 16,
             tickFormat: d => "$" + (d / 1_000_000).toFixed(0) + "M",
             label: null
         }),
@@ -170,8 +155,6 @@ const utilityChart = Plot.plot({
             y: "name",
             text: d => "$" + (d.cost_variance / 1_000_000).toFixed(2) + "M",
             dx: 5,
-            fill: text_fill,
-            fontSize: 14,
             textAnchor: "start",
             marginRight: 100,
             sort: {y: "x", reverse: true}
@@ -184,10 +167,6 @@ const utilityChart = Plot.plot({
             type: 'band',
             interval: 40_000_000
         },
-    },
-    y: {
-        label: null,
-        fontSize: 14
     }
 });
 
@@ -220,24 +199,17 @@ const price_trends = await cost_db.sql`
 const lineChart = Plot.plot({
     title: `Electricity Price Trends: Standard Offer vs. Retail Rates`,
     subtitle: `Plotted against the annual average for ${utility?.name ?? 'all suppliers'}`,
-    // className: "custom-plot",
-    width: Math.max(600, width),
-    height: 700,
-    marginRight: width / 6,
+    className: "custom-plot",
     color: {legend: true},
     x: {label: "Year"},
     y: {
         label: "Price (¢/kWh)",
-        grid: true,
         zero: true
     },
     marks: [
         // Add a horizontal zero line
         Plot.ruleY([0]),
-        Plot.axisY({fontSize: 30}),
         Plot.axisX({
-            fontSize: 30,
-            label: null,
             tickFormat: d => d.toString()
         }),
         // Retail price line
@@ -245,7 +217,6 @@ const lineChart = Plot.plot({
             x: "year",
             y: "avg_price",
             stroke: 'category',
-            strokeWidth: 8,
             tip: true,
             title: d => `Year: ${d.year}\nRetail Price: $${d.avg_price.toFixed(2)}¢/kWh`
         }),
@@ -255,9 +226,8 @@ const lineChart = Plot.plot({
                 y: "avg_price",
                 z: 'category',
                 text: (d) => '$' + (d.avg_price).toFixed(2) + '/kwh',
-                frameAnchor: "left",
-                dx: 7,
-                fontSize: 30
+                frameAnchor: "right",
+                dx: -5
             }
         ))
     ]

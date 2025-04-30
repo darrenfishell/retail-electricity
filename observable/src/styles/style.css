@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     font-family: var(--sans-serif);
-    margin: 4rem 0 8rem;
+    margin: 2rem 0 4rem;
     text-wrap: balance;
     text-align: center;
 }
@@ -11,9 +11,9 @@
 .hero h1 {
     margin: 1rem 0;
     padding: 1rem 0;
-    max-width: none;
-    font-size: 14vw;
-    font-weight: 900;
+    font-size: 7vw;
+    max-width: 34em;
+    font-weight: 800;
     line-height: 1;
     background: linear-gradient(30deg, var(--theme-foreground-focus), currentColor);
     -webkit-background-clip: text;
@@ -29,12 +29,6 @@
     font-weight: 500;
     line-height: 1.5;
     color: var(--theme-foreground-muted);
-}
-
-@media (min-width: 640px) {
-    .hero h1 {
-        font-size: 90px;
-    }
 }
 
 @media (max-width: 768px) {
@@ -57,15 +51,11 @@
 }
 
 svg.custom-plot {
-    /*background-color: darkslateblue;*/
-    /*color: yellow;*/
-    /*padding: 16px;*/
+    color: ${text_fill};
+    fill: ${text_fill};
+    font-size: 0.8em;
 }
 
-svg.custom-plot g[aria-label='y-axis'] {
-    font-size: 16;
-}
-
-svg.custom-plot g[aria-label='tip'] text {
-    fill: black;
+svg.custom-plot .plot-title .plot-subtitle {
+    text-anchor: start
 }
