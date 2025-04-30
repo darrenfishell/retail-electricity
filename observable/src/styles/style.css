@@ -57,9 +57,13 @@
 }
 
 svg.custom-plot {
-    background-color: darkslateblue;
-    color: yellow;
-    padding: 16px;
+    /*background-color: darkslateblue;*/
+    /*color: yellow;*/
+    /*padding: 16px;*/
+}
+
+svg.custom-plot g[aria-label='y-axis'] {
+    font-size: 16;
 }
 
 svg.custom-plot g[aria-label='tip'] text {
