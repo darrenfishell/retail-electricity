@@ -21,12 +21,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Setup Yarn
-      - name: Setup Node.js with Yarn
+      # Setup Node.js without cache
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'yarn'
+          # Removed cache parameter to avoid the error
 
       - name: Install Node dependencies
         run: yarn install
