@@ -1,4 +1,6 @@
-<link rel="stylesheet" href="./styles/style.css">
+---
+style: "./styles/style.css"
+---
 
 ```js
 const json_content = await FileAttachment(`data/cost_comparison.json`).json();

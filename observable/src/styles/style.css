@@ -1,3 +1,12 @@
+
+/* BASE STYLES */
+@import url("observablehq:default.css");
+@import url("observablehq:theme-near-midnight.css");
+
+/*********
+INLINE STYLES MOVED FROM BOTTOM OF INDEX.MD
+*********/
+
 .hero {
     display: flex;
     flex-direction: column;
@@ -37,6 +46,14 @@
     }
 }
 
+/*********
+CUSTOM VISUALIZATION STYLES
+*********/
+
+p, table, figure, figcaption, h1, h2, h3, h4, h5, h6, .katex-display {
+    max-width: 100%;
+}
+
 .dashboard {
     max-width: ${width} px;
     margin: 0 auto;
@@ -58,4 +75,8 @@ svg.custom-plot {
 
 svg.custom-plot .plot-title .plot-subtitle {
     text-anchor: start
+}
+
+svg.custom-plot g[aria-label='tip'] {
+    font-size: 0.75em;
 }
