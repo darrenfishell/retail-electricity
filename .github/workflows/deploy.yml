@@ -36,7 +36,6 @@ jobs:
         uses: conda-incubator/setup-miniconda@v3
         with:
           auto-update-conda: true
-          python-version: 3.11
           activate-environment: retail-electricity
           environment-file: retail-electricity.yml
           auto-activate-base: false
