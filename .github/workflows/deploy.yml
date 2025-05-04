@@ -28,7 +28,7 @@ jobs:
           node-version: 20
           # Removed cache parameter to avoid the error
 
-      # Setup Conda environment
+      # Setup Conda environment first
       - name: Setup Miniconda
         uses: conda-incubator/setup-miniconda@v3
         with:
@@ -36,6 +36,13 @@ jobs:
           activate-environment: retail-electricity
           environment-file: retail-electricity.yml
           auto-activate-base: false
+
+      # Install Node dependencies after conda setup
+      - name: Install Node dependencies
+        shell: bash -el {0}  # Use the conda-activated shell
+        run: |
+          conda activate retail-electricity
+          yarn install
 
       # Create .nojekyll file to prevent Jekyll processing
       - name: Create .nojekyll file
@@ -46,7 +53,6 @@ jobs:
         shell: bash -el {0}
         run: |
           conda activate retail-electricity
-          yarn install
           yarn build
 
       - name: Setup Pages
