@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="generator" content="Observable Framework v1.13.2">
+<title>Maine&#x27;s  (and counting) retail electricity ripoff</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
+<link rel="preload" as="style" href="./_import/styles/style.209d9701.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
+<link rel="stylesheet" type="text/css" href="./_import/styles/style.209d9701.css">
+<link rel="modulepreload" href="./_observablehq/client.913e589c.js">
+<link rel="modulepreload" href="./_observablehq/runtime.e080113b.js">
+<link rel="modulepreload" href="./_observablehq/stdlib.55124be9.js">
+<link rel="modulepreload" href="./_observablehq/stdlib/duckdb.d51cccc5.js">
+<link rel="modulepreload" href="./_npm/@observablehq/plot@0.6.17/d761ef9b.js">
+<link rel="modulepreload" href="./_npm/@duckdb/duckdb-wasm@1.29.0/36014af5.js">
+<link rel="modulepreload" href="./_npm/d3@7.9.0/e780feca.js">
+<link rel="modulepreload" href="./_npm/isoformat@0.2.1/18cbf477.js">
+<link rel="modulepreload" href="./_npm/interval-tree-1d@1.0.4/53fe8176.js">
+<link rel="modulepreload" href="./_npm/apache-arrow@19.0.1/42e4d6a9.js">
+<link rel="modulepreload" href="./_npm/d3-array@3.2.4/e93ca09f.js">
+<link rel="modulepreload" href="./_npm/d3-axis@3.0.0/0f2de24d.js">
+<link rel="modulepreload" href="./_npm/d3-brush@3.0.0/65eb105b.js">
+<link rel="modulepreload" href="./_npm/d3-chord@3.0.1/7ef8fb2e.js">
+<link rel="modulepreload" href="./_npm/d3-color@3.1.0/aeb57b94.js">
+<link rel="modulepreload" href="./_npm/d3-contour@4.0.2/1d2aed74.js">
+<link rel="modulepreload" href="./_npm/d3-delaunay@6.0.4/5ced1d52.js">
+<link rel="modulepreload" href="./_npm/d3-dispatch@3.0.1/9ba9c7f3.js">
+<link rel="modulepreload" href="./_npm/d3-drag@3.0.0/4202580c.js">
+<link rel="modulepreload" href="./_npm/d3-dsv@3.0.1/9cffc2bd.js">
+<link rel="modulepreload" href="./_npm/d3-ease@3.0.1/cdd7e898.js">
+<link rel="modulepreload" href="./_npm/d3-fetch@3.0.1/b4e2ad9a.js">
+<link rel="modulepreload" href="./_npm/d3-force@3.0.0/5e804d15.js">
+<link rel="modulepreload" href="./_npm/d3-format@3.1.0/86074ef6.js">
+<link rel="modulepreload" href="./_npm/d3-geo@3.1.1/40599fb3.js">
+<link rel="modulepreload" href="./_npm/d3-hierarchy@3.1.2/e49e792c.js">
+<link rel="modulepreload" href="./_npm/d3-interpolate@3.0.1/8d1e5425.js">
+<link rel="modulepreload" href="./_npm/d3-path@3.1.0/20d3f133.js">
+<link rel="modulepreload" href="./_npm/d3-polygon@3.0.1/7553081f.js">
+<link rel="modulepreload" href="./_npm/d3-quadtree@3.0.1/0dfd751c.js">
+<link rel="modulepreload" href="./_npm/d3-random@3.0.1/3c90ee06.js">
+<link rel="modulepreload" href="./_npm/d3-scale@4.0.2/843b6a76.js">
+<link rel="modulepreload" href="./_npm/d3-scale-chromatic@3.1.0/ba24c2e7.js">
+<link rel="modulepreload" href="./_npm/d3-selection@3.0.0/4d94e5b7.js">
+<link rel="modulepreload" href="./_npm/d3-shape@3.2.0/6d3a6726.js">
+<link rel="modulepreload" href="./_npm/d3-time@3.1.0/9f03c579.js">
+<link rel="modulepreload" href="./_npm/d3-time-format@4.1.0/07c9626f.js">
+<link rel="modulepreload" href="./_npm/d3-timer@3.0.1/b58a267d.js">
+<link rel="modulepreload" href="./_npm/d3-transition@3.0.1/004da2ac.js">
+<link rel="modulepreload" href="./_npm/d3-zoom@3.0.0/b5786b3f.js">
+<link rel="modulepreload" href="./_npm/binary-search-bounds@2.0.5/cbf6ba23.js">
+<link rel="modulepreload" href="./_npm/tslib@2.8.1/b62a9c4a.js">
+<link rel="modulepreload" href="./_npm/flatbuffers@24.12.23/ff64aefa.js">
+<link rel="modulepreload" href="./_npm/internmap@2.0.3/e08981d9.js">
+<link rel="modulepreload" href="./_npm/delaunator@5.0.1/02d43215.js">
+<link rel="modulepreload" href="./_npm/robust-predicates@3.0.2/aa00730b.js">
+<link rel="icon" href="./_file/observable.1af93621.png" type="image/png" sizes="32x32">
+<script type="module">
+
+import {define} from "./_observablehq/client.913e589c.js";
+import {registerFile} from "./_observablehq/stdlib.55124be9.js";
+
+registerFile("./data/cost_comparison.json", {"name":"./data/cost_comparison.json","mimeType":"application/json","path":"./_file/data/cost_comparison.10379454.json","lastModified":1744688738008,"size":30769});
+
+define({id: "738bdcb6", inputs: ["FileAttachment","DuckDBClient","Generators"], outputs: ["json_content","cost_db","year_summary","premium_total_result","total_variance","formatted_total","year_range","dark"], body: async (FileAttachment,DuckDBClient,Generators) => {
+const json_content = await FileAttachment("./data/cost_comparison.json").json();
+const cost_db = await DuckDBClient.of({cost_db: json_content});
+const year_summary = await cost_db.sql`
+    SELECT 
+        year::INTEGER AS year, 
+        SUM(res_cost_variance) AS variance
+    FROM cost_db
+    GROUP BY year
+`;
+const premium_total_result = Array.from(await cost_db.sql`
+    SELECT 
+        SUM(res_cost_variance) AS total_variance,
+        MIN(year) AS min_year,
+        MAX(year) AS max_year
+    FROM cost_db
+`);
+const total_variance = premium_total_result[0]?.total_variance;
+const formatted_total = "$" + (total_variance / 1_000_000).toFixed(1) + "M";
+const year_range = premium_total_result[0]?.min_year + " - " + premium_total_result[0]?.max_year
+const dark = Generators.dark();
+return {json_content,cost_db,year_summary,premium_total_result,total_variance,formatted_total,year_range,dark};
+}});
+
+define({id: "afadc25a", inputs: ["dark"], outputs: ["text_fill"], body: (dark) => {
+const text_fill = dark ? 'white' : 'black';
+return {text_fill};
+}});
+
+define({id: "6bb99594", mode: "inline", inputs: ["formatted_total","display"], body: async (formatted_total,display) => {
+display(await(
+formatted_total
+))
+}});
+
+define({id: "e69accb9", inputs: ["Plot","year_range","year_summary","formatted_total","width","display"], outputs: ["createAnnualPremiumChart","barChart"], body: (Plot,year_range,year_summary,formatted_total,width,display) => {
+function createAnnualPremiumChart({
+                                      data,
+                                      totalAmount,
+                                      yearRange,
+                                      width = 500,
+                                      height = 400,
+                                      barColor = "steelBlue",
+                                      title = null
+                                  }) {
+    return Plot.plot({
+        title: title || `Retail supplier charges above the standard offer`,
+        subtitle: `Comparing aggregate sales/kwh to a weighted standard offer from ${year_range}`,
+        width: Math.max(500, width),
+        marginTop: 100,
+        className: 'custom-plot',
+        height: height,
+        x: {
+            label: "Year",
+            scale: {
+                type: 'band',
+                interval: 2
+            },
+            tickFormat: (d) => `${d}`
+        },
+        y: {
+            grid: true,
+            label: "Cost over standard offer"
+        },
+        marks: [
+            Plot.rectY(data, {
+                x: "year",
+                y: "variance",
+                fill: barColor,
+                target: "_top"
+            }),
+            Plot.text(data, {
+                x: "year",
+                y: "variance",
+                text: d => "$" + (d.variance / 1_000_000).toFixed(1) + "M",
+                dy: -6, // move the label a bit above the top of the bar
+            }),
+            Plot.axisY({
+                marginLeft: 50,
+                tickFormat: d => "$" + (d / 1_000_000).toFixed(0) + "M"
+            }),
+            Plot.axisX({
+                tickFormat: d => d.toString(),
+                label: null
+            }),
+            Plot.tip(
+                [`Electricity Maine makes up 81 percent of the market in this year, by kWh sales.`],
+                {
+                    x: 2015,
+                    y: 37_000_000,
+                    dy: -10,
+                    anchor: "bottom",
+                    fill: 'black'
+                },
+            )
+
+        ]
+    });
+}
+
+// Use the function to create and display the chart
+const barChart = createAnnualPremiumChart({
+    data: year_summary,
+    totalAmount: formatted_total,
+    yearRange: year_range,
+    width: width,
+    height: 400
+});
+
+display(barChart)
+return {createAnnualPremiumChart,barChart};
+}});
+
+define({id: "f7248047", inputs: ["cost_db","Plot","year_range","width","view"], outputs: ["utility_summary","utilityChart","utility"], body: async (cost_db,Plot,year_range,width,view) => {
+// Query data by utility company for the bubble chart
+const utility_summary = await cost_db.sql`
+    SELECT 
+        utility_name AS name,
+        SUM(res_cost_variance) AS cost_variance,
+        SUM(sales_kwh) as sales_kwh
+    FROM cost_db
+    GROUP BY utility_name
+    ORDER BY cost_variance DESC
+`;
+
+const utilityChart = Plot.plot({
+    title: 'Charges to customers above the standard offer',
+    subtitle: `Comparing aggregate sales/kwh to a weighted standard offer from ${year_range}`,
+    className: 'custom-plot',
+    marks: [
+        Plot.barX(utility_summary, {
+            x: "cost_variance",
+            y: "name",
+            fill: "steelblue",  // Add color to the bars
+            tip: true,
+            sort: {y: "x", reverse: true}
+        }),
+        Plot.axisY({
+            marginLeft: width / 3.25,
+            label: null
+        }),
+        Plot.axisX({
+            tickFormat: d => "$" + (d / 1_000_000).toFixed(0) + "M",
+            label: null
+        }),
+        // Optional: Add values at the end of each bar
+        Plot.text(utility_summary, {
+            x: "cost_variance",
+            y: "name",
+            text: d => "$" + (d.cost_variance / 1_000_000).toFixed(2) + "M",
+            dx: 5,
+            textAnchor: "start",
+            marginRight: 100,
+            sort: {y: "x", reverse: true}
+        })
+    ],
+    x: {
+        label: "Cost Variance ($)",
+        tickFormat: d => "$" + (d / 1_000_000).toFixed(0) + "M",
+        scale: {
+            type: 'band',
+            interval: 40_000_000
+        },
+    }
+});
+
+const utility = view(utilityChart)
+return {utility_summary,utilityChart,utility};
+}});
+
+define({id: "d14822e7", inputs: ["cost_db","utility","Plot","view"], outputs: ["price_trends","lineChart","line_trend"], body: async (cost_db,utility,Plot,view) => {
+// Query time series data for the line chart with updated SQL
+const price_trends = await cost_db.sql`
+    SELECT * FROM
+        (SELECT
+            year::INTEGER AS year,
+            AVG(kwh_rate) AS avg_price,
+            'Retail supplier' AS category
+        FROM cost_db
+        WHERE utility_name = ${utility?.name}
+            OR ${utility?.name ?? 'all'} = 'all'
+        GROUP BY year
+        UNION ALL
+        SELECT 
+            year::INTEGER AS year,
+            AVG(weighted_standard_offer) AS avg_price,
+            'Standard offer' AS category
+        FROM cost_db
+        GROUP BY year
+    ) ORDER BY year
+`;
+
+// Create an interactive line chart with hover effects
+const lineChart = Plot.plot({
+    title: `Electricity Price Trends: Standard Offer vs. Retail Rates`,
+    subtitle: `Plotted against the annual average for ${utility?.name ?? 'all suppliers'}`,
+    className: "custom-plot",
+    color: {legend: true},
+    x: {label: "Year"},
+    y: {
+        label: "Price (¢/kWh)",
+        zero: true
+    },
+    marks: [
+        // Add a horizontal zero line
+        Plot.ruleY([0]),
+        Plot.axisX({
+            tickFormat: d => d.toString()
+        }),
+        // Retail price line
+        Plot.line(price_trends, {
+            x: "year",
+            y: "avg_price",
+            stroke: 'category',
+            tip: true,
+            title: d => `Year: ${d.year}\nRetail Price: $${d.avg_price.toFixed(2)}¢/kWh`
+        }),
+        // Add label for standard offer line using select transform to get the last point
+        Plot.text(price_trends, Plot.selectLast({
+                x: "year",
+                y: "avg_price",
+                z: 'category',
+                text: (d) => '$' + (d.avg_price).toFixed(2) + '/kwh',
+                frameAnchor: "right",
+                dx: -5
+            }
+        ))
+    ]
+});
+
+const line_trend = view(lineChart)
+return {price_trends,lineChart,line_trend};
+}});
+
+define({id: "cf79ce92", mode: "inline", inputs: ["utilityChart","display"], body: async (utilityChart,display) => {
+display(await(
+utilityChart
+))
+}});
+
+define({id: "f9c8667a", mode: "inline", inputs: ["lineChart","display"], body: async (lineChart,display) => {
+display(await(
+lineChart
+))
+}});
+
+</script>
+</head>
+<body>
+<div id="observablehq-center">
+<main id="observablehq-main" class="observablehq">
+<div class="observablehq observablehq--block"><!--:738bdcb6:--></div>
+<div class="observablehq observablehq--block"><!--:afadc25a:--></div>
+<div class="hero">
+<h1 id="maines-and-counting-retail-electricity-ripoff" tabindex="-1"><a class="observablehq-header-anchor" href="#maines-and-counting-retail-electricity-ripoff">Maine's <observablehq-loading></observablehq-loading><!--:6bb99594:--> (and counting) retail electricity ripoff</a></h1>
+<h2 id="each-year-since-2013-maine-customers-pay-more-on-average-with-retail-electricity-suppliers-than-if-they-d-taken-the-default-electricity-price-called-the-standard-offer" tabindex="-1"><a class="observablehq-header-anchor" href="#each-year-since-2013-maine-customers-pay-more-on-average-with-retail-electricity-suppliers-than-if-they-d-taken-the-default-electricity-price-called-the-standard-offer">Each year since 2013, Maine customers pay more, on average, with retail electricity suppliers than if they'd taken the default electricity price, called the standard offer.</a></h2>
+</div>
+<h1 id="retail-suppliers" tabindex="-1"><a class="observablehq-header-anchor" href="#retail-suppliers">Retail suppliers</a></h1>
+<p>Some suppliers, such as Clearview Electric, offered electricity supplied by renewable sources, at a premium cost. In
+most cases, retail suppliers acquire power from sources that match the regional mix of power generation.</p>
+<div class="observablehq observablehq--block"><!--:e69accb9:--></div>
+<div class="observablehq observablehq--block"><!--:f7248047:--></div>
+<div class="observablehq observablehq--block"><!--:d14822e7:--></div>
+<div class="dashboard">
+<div class="grid grid-cols-2" style="gap: 1rem; align-items: start;">
+    <div class="chart-container">
+      <observablehq-loading></observablehq-loading><!--:cf79ce92:-->
+    </div>
+    <div class="chart-container">
+      <observablehq-loading></observablehq-loading><!--:f9c8667a:-->
+    </div>
+</div>
+</div></main>
+<footer id="observablehq-footer">
+<div>Built with <a href="https://observablehq.com/" target="_blank" rel="noopener noreferrer">Observable</a> on <a title="2025-05-04T15:45:43">May 4, 2025</a>.</div>
+</footer>
+</div>
+</body>
+</html>
