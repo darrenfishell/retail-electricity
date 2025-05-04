@@ -28,9 +28,6 @@ jobs:
           node-version: 20
           # Removed cache parameter to avoid the error
 
-      - name: Install Node dependencies
-        run: yarn install
-
       # Setup Conda environment
       - name: Setup Miniconda
         uses: conda-incubator/setup-miniconda@v3
@@ -49,6 +46,7 @@ jobs:
         shell: bash -el {0}
         run: |
           conda activate retail-electricity
+          yarn install
           yarn build
 
       - name: Setup Pages
