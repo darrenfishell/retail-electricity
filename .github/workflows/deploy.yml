@@ -40,20 +40,17 @@ jobs:
       # Install Node dependencies after conda setup
       - name: Install Node dependencies
         shell: bash -el {0}  # Use the conda-activated shell
-        run: |
-          conda activate retail-electricity
-          yarn install
+        run: yarn install
 
       # Create .nojekyll file to prevent Jekyll processing
       - name: Create .nojekyll file
+        shell: bash -el {0}
         run: touch .nojekyll
 
       # Build the project
       - name: Build project
         shell: bash -el {0}
-        run: |
-          conda activate retail-electricity
-          yarn build
+        run: yarn build
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
