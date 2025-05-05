@@ -53,10 +53,13 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
+      - name: List dist dir
+        run: ls dist
+
       - name: github-pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist/'
+          path: dist/
 
   deploy:
     environment:
