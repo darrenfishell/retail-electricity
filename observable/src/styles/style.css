@@ -12,7 +12,7 @@ INLINE STYLES MOVED FROM BOTTOM OF INDEX.MD
     flex-direction: column;
     align-items: center;
     font-family: var(--sans-serif);
-    margin: 2rem 0 4rem;
+    margin: 0 0 4rem;
     text-wrap: balance;
     text-align: center;
 }
@@ -20,8 +20,8 @@ INLINE STYLES MOVED FROM BOTTOM OF INDEX.MD
 .hero h1 {
     margin: 1rem 0;
     padding: 1rem 0;
-    font-size: 7vw;
-    max-width: 34em;
+    font-size: 3em;
+    max-width: 40em;
     font-weight: 800;
     line-height: 1;
     background: linear-gradient(30deg, var(--theme-foreground-focus), currentColor);
@@ -32,8 +32,7 @@ INLINE STYLES MOVED FROM BOTTOM OF INDEX.MD
 
 .hero h2 {
     margin: 0;
-    max-width: 34em;
-    font-size: 20px;
+    font-size: 1em;
     font-style: initial;
     font-weight: 500;
     line-height: 1.5;
