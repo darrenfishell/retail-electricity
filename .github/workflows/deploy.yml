@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./observable
+        working-directory: ${{ github.workspace }}/observable
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -59,7 +59,7 @@ jobs:
       - name: github-pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: ${{ github.workspace }}/observable/dist
 
   deploy:
     environment:
