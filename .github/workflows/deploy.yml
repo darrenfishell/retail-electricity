@@ -48,7 +48,7 @@ jobs:
       # Build the project
       - name: Build project
         shell: bash -el {0}
-        run: yarn build --debug
+        run: yarn build
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
