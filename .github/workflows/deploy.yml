@@ -37,6 +37,26 @@ jobs:
           environment-file: retail-electricity.yml
           auto-activate-base: false
 
+      # Debug: Check Python data loader
+      - name: Debug Python data loader
+        shell: bash -el {0}
+        run: |
+          echo "Checking Python data loader:"
+          cd observable
+          if [ -f "src/data/cost_comparison.json.py" ]; then
+            echo "Python data loader exists. Contents:"
+            cat src/data/cost_comparison.json.py
+            echo "Testing data loader execution:"
+            cd src
+            python data/cost_comparison.json.py > /tmp/test_output.json
+            echo "Exit code: $?"
+            echo "First few lines of output:"
+            head -n 20 /tmp/test_output.json
+          else
+            echo "Python data loader not found at expected location"
+            find . -name "*.py" | grep -i cost
+          fi
+
       # Install Node dependencies after conda setup
       - name: Install Node dependencies
         shell: bash -el {0}  # Use the conda-activated shell
