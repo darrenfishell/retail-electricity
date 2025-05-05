@@ -42,6 +42,8 @@ INLINE STYLES MOVED FROM BOTTOM OF INDEX.MD
     .grid-cols-2 {
         grid-template-columns: 1fr !important;
     }
+
+
 }
 
 /*********
@@ -57,7 +59,7 @@ p, table, figure, figcaption, h1, h2, h3, h4, h5, h6, .katex-display, blockquote
     margin: 0 auto;
     font-family: system-ui, sans-serif;
     border: 1px solid var(--theme-foreground-muted);
-    padding: 0 0px;
+    padding: 0 10px;
 }
 
 .chart-container {
@@ -82,7 +84,7 @@ svg.custom-plot {
 }
 
 svg.custom-plot .plot-title .plot-subtitle {
-    text-anchor: start
+    text-anchor: start;
 }
 
 svg.custom-plot g[aria-label='tip'] {
