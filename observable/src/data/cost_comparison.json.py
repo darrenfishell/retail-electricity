@@ -9,8 +9,6 @@ query = '''
     FROM dbt_models.v_rate_comparison
 '''
 
-query = '''SELECT 1 as test'''
-
 # Load the data
 try:
     data = db.return_query_as_json(query)
@@ -18,5 +16,4 @@ except Exception as e:
     print("Error querying database:", e)
     sys.exit(1)
 
-# Write the JSON data to a file
 sys.stdout.write(data)

@@ -7,7 +7,7 @@ const json_content = await FileAttachment(`data/cost_comparison.json`).json();
 const cost_db = await DuckDBClient.of({cost_db: json_content});
 const year_summary = await cost_db.sql`
     SELECT 
-        year::INTEGER AS year, 
+        year::INTEGER as year, 
         SUM(res_cost_variance) AS variance
     FROM cost_db
     GROUP BY year
