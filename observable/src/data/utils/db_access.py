@@ -5,7 +5,7 @@ from contextlib import contextmanager
 class Database:
     def __init__(self, db_name):
         self.db_name = db_name + '.duckdb'
-        self.data_root = Path(__file__).resolve().parents[4] / 'data'
+        self.data_root = Path(__file__).resolve().parents[4] / 'db'
         self.db_path = self.data_root / self.db_name
 
     @contextmanager
