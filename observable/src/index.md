@@ -330,7 +330,7 @@ Unless they specifically scrutinized the supplier name on the bill, they could e
 
 The growth of the retail market spawned still more confusion, as websites and services offering help navigating all of the different suppliers popped up across New England. In some cases, however, the purportedly independent information brokers had relationships themselves with electricity suppliers. 
 
-> BDN: [https://www.bangordailynews.com/2018/07/24/mainefocus/new-electricity-shopping-sites-mislead-customers-watchdog-warns/](https://www.bangordailynews.com/2018/07/24/mainefocus/new-electricity-shopping-sites-mislead-customers-watchdog-warns/)
+> BDN: [New electricity shopping sites mislead customers, watchdog warns](https://www.bangordailynews.com/2018/07/24/mainefocus/new-electricity-shopping-sites-mislead-customers-watchdog-warns/)
 
 Elin Katz, Connecticut's Consumer Counsel in 2018, said at the time "They’re just trying to sell you one of four suppliers who pay them."
 

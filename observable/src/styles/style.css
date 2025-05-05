@@ -66,13 +66,12 @@ p, table, figure, figcaption, h1, h2, h3, h4, h5, h6, .katex-display, blockquote
 }
 
 blockquote {
-    background-color: #e8e8e8;
+    background-color: rgba(232, 232, 232, 0.2);
     border-left: 4px solid #ddd;
     margin: 1em 0;
     font-style: italic;
     font-size: 1.1em;
     padding: 0.3em 1.5em;
-    color: #333;
     border-radius: 4px;
 }
 
