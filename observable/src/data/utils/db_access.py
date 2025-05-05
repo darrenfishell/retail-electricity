@@ -11,7 +11,6 @@ class Database:
     @contextmanager
     def _get_connection(self):
         conn = duckdb.connect(self.db_path, read_only=True)
-        print(f'Conn: {conn}')
         try:
             yield conn
         finally:
