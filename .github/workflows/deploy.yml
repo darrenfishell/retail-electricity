@@ -40,7 +40,9 @@ jobs:
       # Install Node dependencies after conda setup
       - name: Install Node dependencies
         shell: bash -el {0}  # Use the conda-activated shell
-        run: yarn install
+        run: | 
+          cd observable
+          yarn install
 
       # Create .nojekyll file to prevent Jekyll processing
       - name: Create .nojekyll file
@@ -50,7 +52,9 @@ jobs:
       # Build the project
       - name: Build project
         shell: bash -el {0}
-        run: yarn build
+        run: | 
+          cd observable
+          yarn build
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
