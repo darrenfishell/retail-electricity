@@ -94,7 +94,7 @@ function createAnnualPremiumChart({
                     y: 37_000_000,
                     dy: -10,
                     anchor: "bottom",
-                    fill: 'black'
+                    fill: 'white'
                 },
             )
 

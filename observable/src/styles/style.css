@@ -90,3 +90,7 @@ svg.custom-plot .plot-title .plot-subtitle {
 svg.custom-plot g[aria-label='tip'] {
     font-size: 0.75em;
 }
+
+svg.custom-plot g[aria-label='tip'] text {
+    fill: black;
+}
