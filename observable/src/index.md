@@ -258,7 +258,7 @@ This pipeline is a dramatic improvement over the Tableau Prep and manual data wr
 
 The analysis provides context for a series of reporting I conducted for the Bangor Daily News and the Maine Monitor, both which provided some important additional context for the data. Regulators have called attention to bad practices in the industry for many years, as has the state's public advocate, but the general trend continues of the retail market costing customers more.
 
-The last time I reported on the subject for any outlet was 2020, for The Maine Monitor, when the forgone savings totaled $132 million. As of this writing (2025), it now totals $185 million.
+The last time I reported on the subject for any outlet was 2020, for The Maine Monitor, when the forgone savings totaled $132 million. As of this writing (2025), it now totals $185.5 million.
 
 > Maine Monitor: [The $132M electricity rip-off](https://themainemonitor.org/private-electricity-suppliers-cost-mainers-132-million-more-than-necessary/)
 
