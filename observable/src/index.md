@@ -262,8 +262,6 @@ The last time I reported on the subject for any outlet was 2020, for The Maine M
 
 > Maine Monitor: [The $132M electricity rip-off](https://themainemonitor.org/private-electricity-suppliers-cost-mainers-132-million-more-than-necessary/)
 
-From the summer of 2021 through April 2025, that reporting was on a hiatus while I worked on launching the internal business intelligence department at the tax and accounting firm Baker Newman Noyes. But, it's back on now and will be updated annually in this project. 
-
 The total continues to astound me, but the context and methods of some prior reporting are just as important. Below are some key points and a list of stories (BDN paywall applies) that detail some of the important other trends regarding regulator complaints, lawsuits and deceptive marketing tactics. 
 
 ### The retail supplier response
