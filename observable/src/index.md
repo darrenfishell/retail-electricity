@@ -31,7 +31,7 @@ const text_fill = dark ? 'white' : 'black';
 
 <div class="hero">
 
-# Maine's ${formatted_total} (and counting) retail electricity ripoff
+# Maine's $180.5M (and counting) retail electricity ripoff
 
 ## Each year since 2013, Maine customers have paid more than they needed to for electricity. If customers had taken the standard offer instead of buying service from retail suppliers, who sometimes sell door-to-door, they would have saved ${formatted_total} from ${year_range}.
 
