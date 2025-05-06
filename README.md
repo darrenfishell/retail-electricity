@@ -1,6 +1,6 @@
 # 🔌 Retail Electricity Data Pipeline and Analysis
 
-> A reproducible data engineering and analysis pipeline built with Python, dlt, dbt, DuckDB, and Tableau.
+> A reproducible data engineering and analysis pipeline built with Python, dlt, dbt, DuckDB, Tableau and Observable Plot.
 
 ## 📦 Project Overview
 
