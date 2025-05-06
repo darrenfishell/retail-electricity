@@ -1,5 +1,7 @@
 # 🔌 Retail Electricity Data Pipeline and Analysis
 
+[![Deploy to GitHub Pages](https://github.com/darrenfishell/retail-electricity/actions/workflows/deploy.yml/badge.svg?event=deployment)](https://github.com/darrenfishell/retail-electricity/actions/workflows/deploy.yml)
+
 > A reproducible data engineering and analysis pipeline built with Python, dlt, dbt, DuckDB, Tableau and Observable Plot.
 
 ## 📦 Project Overview
