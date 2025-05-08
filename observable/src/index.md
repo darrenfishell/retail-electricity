@@ -298,7 +298,7 @@ The [state's public advocate in 2023](https://wgme.com/news/local/public-advocat
 
 ### Poles, wires and bills vs. supply
 
-One of the most important details about this story and this reporting is also one of the most boring: the utility companies that send out bills to customers don't actually sell you electricity. They do bill you, and they do maintain all of the infrastructure for billing you, but they are just processing the bill for the actual electricity supply. This was part of deregulation of Maine's electricity market in the early 2000s. 
+One of the most important details about this story and this reporting is also one of the most boring: the utility companies that send out bills to customers don't actually sell you electricity. They do bill you, and they do maintain all of the infrastructure for billing you, but they are just processing the bill for the actual electricity supply, which is broken out on a bill. Bills do also include charges directly from the utility, for transmission and distribution and other costs ([sample CMP bill](https://www.cmpco.com/account/understandyourbill/sample-bill)). This was part of deregulation of Maine's electricity market in the early 2000s. 
 
 But it wasn't until 2012 that any suppliers showed up to offer a real alternative to customers from the standard offer, which is also not supplied by the utilities. The standard offer is just a bulk deal that state regulators solicit bids on from other large regional suppliers on a regular basis (now annual).
 
