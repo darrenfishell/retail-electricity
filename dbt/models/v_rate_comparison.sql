@@ -5,6 +5,7 @@ SELECT
 	eia.utility_name,
 	eia.grid_operator,
 	eia.revenue,
+	eia.customers,
 	eia.sales_kwh,
 	eia.kwh_rate,
 	wso.weighted_standard_offer,
